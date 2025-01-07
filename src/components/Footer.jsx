@@ -5,7 +5,7 @@ import { FaThreads } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <footer className="bg-black py-8">
+    <footer className=" py-8">
       <div className="container mx-auto px-6 text-center">
         {/* Logo or Salon Name */}
         <div className="mb-4">

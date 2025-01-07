@@ -27,7 +27,7 @@ const GalleryCarousel = () => {
   }, []);
 
   return (
-    <section id="gallery" className="py-20 bg-black text-white flex flex-col items-center justify-center">
+    <section id="gallery" className="py-20  text-white flex flex-col items-center justify-center">
       {/* Section Title */}
       <div className="text-center">
         <h2 className="text-4xl font-bold text-red-600 mb-6">Our Instagram Reels</h2>

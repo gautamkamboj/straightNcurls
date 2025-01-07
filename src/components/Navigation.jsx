@@ -14,7 +14,7 @@ const Navigation = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: 'spring', stiffness: 120 }}
-      className="fixed w-full bg-white bg-opacity-50 shadow-lg z-50"
+      className="fixed w-full bg-white  shadow-lg z-50"
     >
       <div className="container mx-auto px-6 py-2 flex justify-between items-center">
         {/* Logo */}
