@@ -4,7 +4,7 @@ import { FaWhatsapp, FaCanadianMapleLeaf } from 'react-icons/fa';
 
 const Hero = () => {
   return (
-    <section className="h-screen flex flex-col justify-center items-center text-center px-6">
+    <section id='home' className="h-screen flex flex-col justify-center items-center text-center px-6">
       {/* Title Section */}
       <div className="flex items-center gap-3 mb-6">
         <FaCanadianMapleLeaf className="text-red-500 text-4xl" />

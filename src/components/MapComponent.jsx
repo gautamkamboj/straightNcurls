@@ -32,7 +32,7 @@ import React from 'react';
 
 const MapComponent = () => {
   return (
-    <section id="location" className="py-20   text-white">
+    <section id="about" className="py-20   text-white">
       <div className="container mx-auto px-6">
         <h2 className="text-4xl font-bold text-center text-red-600 mb-8">
           Visit Us

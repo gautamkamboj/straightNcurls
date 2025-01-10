@@ -31,7 +31,7 @@ const Navigation = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">
-          {['Home', 'Services', 'Gallery', 'About', 'Contact'].map((item) => (
+          {['Home', 'Services', 'Gallery', 'About'].map((item) => (
             <motion.a
               key={item}
               href={`#${item.toLowerCase()}`}
@@ -89,7 +89,7 @@ const Navigation = () => {
           className="md:hidden bg-white bg-opacity-95 shadow-md z-50"
         >
           <div className="flex flex-col items-center space-y-4 py-6">
-            {['Home', 'Services', 'Gallery', 'About', 'Contact'].map((item) => (
+            {['Home', 'Services', 'Gallery', 'About'].map((item) => (
               <motion.a
                 key={item}
                 href={`#${item.toLowerCase()}`}
