@@ -1,117 +1,172 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Calendar } from 'react-feather'; // For the calendar icon
+import emailjs from "@emailjs/browser";
 
 const BookingForm = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleForm = () => {
-    setIsOpen(!isOpen);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedSubCategory, setSelectedSubCategory] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const categories = {
+    Hair: ['Haircut', 'Hair Styling', 'Hair Coloring', 'Hair Spa'],
+    Skin: ['Facial', 'Waxing', 'Threading', 'Bleaching'],
+    Makeup: ['Bridal Makeup', 'Party Makeup', 'HD Makeup'],
+    Nails: ['Manicure', 'Pedicure', 'Nail Art', 'Gel Nails'],
   };
 
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value);
+    setSelectedSubCategory(''); // Reset subcategory when category changes
+  };
+
+  const handleFormSubmit = (e) => {
+     e.preventDefault();
+  
+    const formData = {
+       to_name: 'Straight N Curls', // Replace with the recipient's name
+      name: e.target.name.value,
+      phone: e.target.phone.value,
+      category: e.target.category.value,
+      subcategory: e.target.subcategory.value,
+    };
+  
+    emailjs
+      .send(
+        import.meta.env.VITE_mailjs_service_id, // Replace with your EmailJS Service ID
+        import.meta.env.VITE_mailjs_template_id, // Replace with your EmailJS Template ID
+        formData,
+        import.meta.env.VITE_mailjs_public_key
+
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+         
+          setSuccessMessage('Thank you! We will contact you shortly.'); // Show success message
+
+          // Clear the form
+          e.target.reset();
+
+          // Hide success message after 3 seconds
+          // setTimeout(() => setSuccessMessage(''), 3000);
+          window.location.href = '#home'; // Redirect to landing page
+          location.reload();
+
+        },
+        (error) => {
+          console.error(error.text);
+          alert('Failed to send message. Please try again.');
+        }
+      );
+  };
+  
+
   return (
-    <>
-      {/* Floating Button to Open Booking Form */}
-      <motion.button
-        className="fixed bottom-4 right-4 bg-red-600 text-white p-4 rounded-full shadow-lg z-50"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={toggleForm}
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <form
+        className="bg-white shadow-md rounded-lg p-6 space-y-4 w-96"
+        onSubmit={handleFormSubmit}
       >
-        <Calendar className="w-6 h-6" />
-      </motion.button>
+         <h2 className="text-xl font-bold text-center">Book Your Appointment</h2>
 
-      {/* Booking Form */}
-      <motion.div
-        className={`fixed top-0 right-0 h-full w-full max-w-md bg-black text-white z-50 shadow-lg transition-transform duration-300 ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-        initial={{ x: '100%' }}
-        animate={{ x: isOpen ? '0%' : '100%' }}
-        transition={{ duration: 0.3 }}
-      >
-        <div className="h-full flex flex-col">
-          {/* Header */}
-          <div className="p-4 bg-red-600 flex items-center justify-between">
-            <h2 className="text-xl font-bold">Book Appointment</h2>
-            <motion.button
-              whileHover={{ scale: 1.2 }}
-              onClick={toggleForm}
-              className="text-white text-xl font-bold"
-            >
-              &times;
-            </motion.button>
-          </div>
+{successMessage && (
+  <div className="bg-green-100 text-green-800 p-3 rounded-md text-center">
+    {successMessage}
+  </div>
+)}
 
-          {/* Form Content */}
-          <div className="p-6 flex-1 overflow-y-auto">
-            <form className="space-y-4">
-              {/* Name */}
-              <div>
-                <label htmlFor="name" className="block text-gray-400 mb-1">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  className="w-full p-2 rounded bg-gray-800 text-white"
-                  placeholder="Enter your name"
-                />
-              </div>
-
-              {/* Email */}
-              <div>
-                <label htmlFor="email" className="block text-gray-400 mb-1">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  className="w-full p-2 rounded bg-gray-800 text-white"
-                  placeholder="Enter your email"
-                />
-              </div>
-
-              {/* Service Dropdown */}
-              <div>
-                <label htmlFor="service" className="block text-gray-400 mb-1">Service</label>
-                <select id="service" className="w-full p-2 rounded bg-gray-800 text-white">
-                  <option value="haircut">Haircut</option>
-                  <option value="color">Color</option>
-                  <option value="treatment">Hair Treatment</option>
-                </select>
-              </div>
-
-              {/* Date */}
-              <div>
-                <label htmlFor="date" className="block text-gray-400 mb-1">Date</label>
-                <input
-                  type="date"
-                  id="date"
-                  className="w-full p-2 rounded bg-gray-800 text-white"
-                />
-              </div>
-
-              {/* Time */}
-              <div>
-                <label htmlFor="time" className="block text-gray-400 mb-1">Time</label>
-                <input
-                  type="time"
-                  id="time"
-                  className="w-full p-2 rounded bg-gray-800 text-white"
-                />
-              </div>
-
-              {/* Submit Button */}
-              <motion.button
-                type="submit"
-                className="w-full py-2 bg-red-600 text-white rounded-full text-lg font-semibold hover:bg-red-700 transition duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Book Now
-              </motion.button>
-            </form>
-          </div>
+        {/* Name */}
+        <div>
+          <label htmlFor="name" className="block font-medium text-gray-600">
+            Name:
+          </label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            required
+            className="w-full mt-1 p-2 border border-gray-300 rounded focus:ring-2 focus:ring-red-500 focus:outline-none text-gray-700 placeholder-gray-400"
+            placeholder="Enter your name"
+          />
         </div>
-      </motion.div>
-    </>
+
+        {/* Phone */}
+        <div>
+          <label htmlFor="phone" className="block font-medium text-gray-600">
+            Phone:
+          </label>
+          <input
+            type="tel"
+            name="phone"
+            id="phone"
+            required
+            className="w-full mt-1 p-2 border border-gray-300 rounded focus:ring-2 focus:ring-red-500 focus:outline-none text-gray-700 placeholder-gray-400"
+            placeholder="Enter your phone number"
+          />
+        </div>
+
+        {/* Category Dropdown */}
+        <div>
+          <label htmlFor="category" className="block font-medium text-gray-600">
+            Category:
+          </label>
+          <select
+            name="category"
+            id="category"
+            value={selectedCategory}
+            onChange={handleCategoryChange}
+            required
+            className="w-full mt-1 p-2 border border-gray-300 rounded focus:ring-2 focus:ring-red-500 focus:outline-none text-gray-700 bg-white"
+          >
+            <option value="" disabled>
+              Select a Category
+            </option>
+            {Object.keys(categories).map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Subcategory Dropdown */}
+        <div>
+          <label htmlFor="subcategory" className="block font-medium text-gray-600">
+            Service:
+          </label>
+          <select
+            name="subcategory"
+            id="subcategory"
+            value={selectedSubCategory}
+            onChange={(e) => setSelectedSubCategory(e.target.value)}
+            required
+            disabled={!selectedCategory} // Disable if no category is selected
+            className={`w-full mt-1 p-2 border border-gray-300 rounded focus:ring-2 focus:ring-red-500 focus:outline-none text-gray-700 bg-white ${
+              !selectedCategory ? 'bg-gray-100 cursor-not-allowed' : ''
+            }`}
+          >
+            <option value="" disabled>
+              {selectedCategory
+                ? 'Select a Subcategory'
+                : 'Select a Category First'}
+            </option>
+            {selectedCategory &&
+              categories[selectedCategory].map((subCategory) => (
+                <option key={subCategory} value={subCategory}>
+                  {subCategory}
+                </option>
+              ))}
+          </select>
+        </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          href={`#home`}
+          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-700 transition-colors"
+        >
+          Get Enquiry
+        </button>
+      </form>
+    </div>
   );
 };
 
