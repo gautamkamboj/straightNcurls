@@ -65,7 +65,7 @@ const BookingForm = () => {
         className="bg-white shadow-md rounded-lg p-6 space-y-4 w-96"
         onSubmit={handleFormSubmit}
       >
-         <h2 className="text-xl font-bold text-center">Book Your Appointment</h2>
+         <h2 className="text-xl text-black font-bold text-center">Book Your Appointment</h2>
 
 {successMessage && (
   <div className="bg-green-100 text-green-800 p-3 rounded-md text-center">

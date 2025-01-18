@@ -17,17 +17,18 @@ const Navigation = () => {
       className="fixed w-full bg-white  shadow-lg z-50"
     >
       <div className="container mx-auto px-6 py-2 flex justify-between items-center">
-        {/* Logo */}
-        <motion.div
-          whileHover={{ scale: 1.1 }}
-          className="text-2xl font-bold text-red-600"
-        >
-          <img
-            src="./logo.png"
-            alt="Logo"
-            className="w-40 h-auto mx-auto"
-          />
-        </motion.div>
+  {/* Logo */}
+  <motion.div whileHover={{ scale: 1.1 }} className="text-2xl font-bold text-red-600">
+    <a href="/" className="block">
+      <img
+        src="./logo.png"
+        alt="Logo"
+        className="w-40 h-auto mx-auto"
+      />
+    </a>
+  </motion.div>
+
+
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">

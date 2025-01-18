@@ -47,16 +47,31 @@ const Footer = () => {
         </div>
 
         {/* Copyright */}
-        <p className="text-gray-500">
-          &copy; 2025 Straight N Curls. All rights reserved.
-          
-        </p>
-        <p className="text-gray-500">
-        A-70,Near Standard Bakery, Kaulagarh Rd, Rajender Nagar, Dehradun, Uttarakhand 248001
-        </p>
-        <p className="text-gray-500">
-        72 weatherall avenue, Cambridge ON N3H0C1
-        </p>
+        <div className="text-center py-4  text-white">
+  <p className="text-gray-400">
+    &copy; 2025 Straight N Curls. All rights reserved.
+  </p>
+
+  {/* Domestic Address */}
+  <div className="mt-2">
+    <h3 className="text-lg font-semibold text-white">Domestic Address:</h3>
+    <p className="text-gray-400">
+      A-70, Near Standard Bakery, Kaulagarh Rd, Rajender Nagar,
+      Dehradun, Uttarakhand 248001
+    </p>
+    <p className="text-gray-400">Phone: +91 8598000077</p>
+  </div>
+
+  {/* Foreign Address */}
+  <div className="mt-4">
+    <h3 className="text-lg font-semibold text-white">International Address:</h3>
+    <p className="text-gray-400">
+      72 Weatherall Avenue, Cambridge, ON N3H 0C1, Canada
+    </p>
+    {/* <p className="text-gray-400">Phone: +1 519-000-1234</p> */}
+  </div>
+</div>
+
 
       </div>
     </footer>
